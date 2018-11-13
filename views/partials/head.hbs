@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<title>{{ pageTitle }}</title>
+	<link rel="shortcut icon" href="assets/feather.png">
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link href="https://fonts.googleapis.com/css?family=KoHo:200,300,400" rel="stylesheet" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+	 crossorigin="anonymous" /> 
+	 {{#if productCss}}
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/product.css" />
+	{{else if homeCss}}
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/home.css" />
+	{{else if shopCss}}
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/shop.css" />
+	{{else}}	
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/404.css" />{{/if}}
+	<link rel="stylesheet" type="text/css" media="screen" href="/css/main.css" />
+
+</head>
+
+<body>
+	<!-- Start of Mobile -->
+
+	<div class="backdrop"></div>
+	<div class="mobile-nav">
+		<div class="mobile-form">
+			<h3>Zooks
+				<i class="fas fa-feather-alt"></i>
+			</h3>
+			<form action="/products/search" method="GET">
+				<input class="mobile-search-input" type="text" name="product" placeholder="Search For Products..." />
+				<button class="mobile-search-btn" type="submit">
+					<i class="fas fa-search"></i>
+				</button>
+			</form>
+		</div>
+		<nav class="mobile-nav-container">
+			<ul class="mobile-nav-list">
+				<li class="mobile-nav-item sign">
+					<a href="{{#if isSignedIn}}/log/out{{else}}/log/in{{/if}}">{{#if isSignedIn}}<i class="fas fa-user"></i>Sign Out{{else}}<i class="fas fa-user"></i>Sign In{{/if}}</a>
+				</li>
+				<li class="mobile-nav-item {{#if activeHome}}active{{/if}}">
+					<a href="/">Home</a>
+				</li>
+				<li class="mobile-nav-item {{#if activeShop}}active{{/if}}">
+					<a href="/shop">Shop</a>
+				</li>
+				<li class="mobile-nav-item {{#if activeAddProduct}}active{{/if}}">
+					<a href="/add-product">Add Product</a>
+				</li>
+				<li class="mobile-nav-item {{#if activeCart}}active{{/if}}">
+					<a href="/shop/cart">Cart(0)
+						<i class="fas fa-shopping-cart"></i>
+					</a>
+				</li>
+				<li class="mobile-nav-item {{#if activeOrder}}active{{/if}}">
+					<a href="/shop/order">Order</a>
+				</li>
+			</ul>
+		</nav>
+		<div class="mobile-copyright">
+			<p>&copy; 2018 Zooks, Inc.</p>
+		</div>
+	</div>
+
+	<!-- End of Mobile -->
+	<!-- Start of main nav -->
+	<header class="header-container">
+		<div class="search-container">
+			<i id="menu-icon" class="fas fa-bars"></i>
+			<h3>Zooks
+				<i class="fas fa-feather-alt"></i>
+			</h3>
+			<form action="/products/search" method="GET">
+				<input class="search-input" type="text" name="product" placeholder="Search For Products..." />
+				<button class="search-btn" type="submit">
+					<i class="fas fa-search"></i>
+				</button>
+			</form>
+		</div>
+		<nav class="nav-container">
+			<ul class="nav-list">
+				<li class="nav-item {{#if activeHome}}active{{/if}}">
+					<a href="/">Home</a>
+				</li>
+				<li class="nav-item {{#if activeShop}}active{{/if}}">
+					<a href="/shop">Shop</a>
+				</li>
+				<li class="nav-item {{#if activeAddProduct}}active{{/if}}">
+					<a href="/add-product">Add Product</a>
+				</li>
+				<li class="nav-item {{#if activeCart}}active{{/if}}">
+					<a href="/shop/cart">Cart(0)<i class="fas fa-shopping-cart"></i>
+					</a>
+				</li>
+				<li class="nav-item {{#if activeOrder}}active{{/if}}">
+					<a href="/shop/order">Order</a>
+				</li>
+				<li class="nav-item sign">
+					<a href="{{#if isSignedIn}}/log/out{{else}}/log/in{{/if}}">{{#if isSignedIn}}<i class="fas fa-user"></i>Sign Out{{else}}<i class="fas fa-user"></i>Sign In{{/if}}</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+	<!-- End of main nav -->
+	<!-- Start of medium size nav -->
+	<div class="medium-search-container">
+		<form action="/products/search" method="GET">
+			<input class="medium-search-input" type="text" name="product" placeholder="Search For Products..." />
+			<button class="medium-search-btn" type="submit">Search</button>
+		</form>
+	</div>
+	<!-- End of medium size nav -->

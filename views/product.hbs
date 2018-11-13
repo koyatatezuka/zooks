@@ -1,0 +1,45 @@
+<div class="product-container">
+
+  <form class="product-form" action="{{#if editing}}/edit-product{{else}}/add-product{{/if}}" method="POST">
+    <div class="form-control">
+      <label for="name">Product Name</label>
+      <input type="text" name="name" id="name" value="" required >
+    </div>
+    <div class="form-control">
+      <label for="imageUrl">Image Url</label>
+      <input type="text" name="imageUrl" id="imageUrl" value="" required>
+    </div>
+    <div class="form-control">
+      <label for="price">Price</label>
+      <input type="number" name="price" id="price" step="0.01" value="" required>
+    </div>
+    <div class="form-control">
+      <label for="description">Product Description</label>
+      <textarea name="description" id="description" rows="5"  required></textarea>
+    </div>
+    <div class="form-control">
+      <label for="type">Type</label>
+      <select name="type" id="type">
+        <option value="5bea36ae697fd134bf25c4b6">Books</option>
+        <option value="5bea36ae697fd134bf25c4b7">Electronics</option>
+        <option value="5bea36ae697fd134bf25c4b8">Home, Garden &amp; Tools</option>
+        <option value="5bea36ae697fd134bf25c4b9">Movies, Music &amp; Games</option>
+        <option value="5bea36ae697fd134bf25c4ba">Clothing</option>
+        <option value="5bea36ae697fd134bf25c4bb">Toys, Kids &amp; Baby</option>
+        <option value="5bea36ae697fd134bf25c4bc">Sports &amp; Outdoors</option>
+      </select>
+    </div>
+    <div class="form-control">
+      <p>On Sale:</p>
+      <div class="sale">
+        <input type="radio" id="no-sale" name="sale" value="no" checked>
+        <label for="no">Not on Sale</label>
+        <input type="radio" id="on-sale" name="sale" value="yes">
+        <label for="yes">On Sale</label>
+      </div>
+    </div>
+    <button class="btn" type="submit">{{#if editing}}Edit{{else}}Add Product{{/if}}</button>
+  </form>
+
+
+</div>

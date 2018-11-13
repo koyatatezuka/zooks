@@ -1,0 +1,106 @@
+.product-container {
+	background-image: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.7)),
+		url('https://images.unsplash.com/photo-1511344506912-a2a2d4916354?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=92498ef1b05f6d75d1b6463d70151ff7&auto=format&fit=crop&w=750&q=80');
+	background-size: cover;
+	background-repeat: no-repeat;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 600px;
+	margin-top: 5rem;
+}
+
+.product-form {
+	background-color: transparent;
+	height: 40rem;
+	width: 30rem;
+	border-radius: 0.5rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-evenly;
+	box-sizing: border-box;
+}
+
+.form-control {
+	display: flex;
+	flex-direction: column;
+	font-size: 1.2rem;
+	width: 20rem;
+	letter-spacing: 0.1rem;
+	color: rgb(0, 0, 0);
+	font-weight: 300;
+}
+
+.form-control input {
+	border-radius: 0.3rem;
+	height: 1.7rem;
+	padding: 0 0.4rem;
+	border: 1.4px solid rgb(160, 160, 160);
+	font-size: 1rem;
+	outline: none;
+	margin: 0.5rem 0;
+	font-weight: 300;
+}
+
+.form-control textarea {
+	outline: none;
+	resize: none;
+	padding: 0.3rem 0.3rem;
+	font-size: 1rem;
+	font-weight: 300;
+	border-radius: 0.3rem;
+	border: 1.4px solid rgb(160, 160, 160);
+}
+
+.btn {
+	padding: 0.2rem;
+	font-size: 1rem;
+	width: 33%;
+	border-radius: 0.3rem;
+	font-weight: 300;
+	background-color: black;
+	color: white;
+	letter-spacing: 0.1rem;
+	border-color: black;
+}
+
+.form-control textarea:focus,
+.form-control input:focus {
+	border-color: black;
+}
+
+.btn:hover {
+	background-color: #029693;
+	border-color: #029693;
+	transition: all 0.3s ease-out;
+}
+
+.sale {
+	display: flex;
+	align-items: center;
+}
+
+.sale input {
+	margin-right: 1rem;
+	cursor: pointer;
+}
+
+.sale label {
+	margin-right: 1.5rem;
+}
+
+#type {
+	height: 2rem;
+	font-size: 1rem;
+	outline: none;
+	font-weight: 300;
+}
+
+@media (max-width: 700px) {
+	.product-form {
+		width: 23rem;
+	}
+}

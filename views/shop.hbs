@@ -1,11 +1,105 @@
 <div class="product-type_container">
   <ul class="product-list">
-    <li class="product-item"><a href="/shop/book">Books</a></li>
-    <li class="product-item"><a href="/shop/homegardentool">Home, Garden &amp; Tools</a></li>
-    <li class="product-item"><a href="/shop/electronic">Electronics</a></li>
-    <li class="product-item"><a href="/shop/clothing">Clothing</a></li>
-    <li class="product-item"><a href="/shop/toykidbaby">Toys, Kids &amp; Baby</a></li>
-    <li class="product-item"><a href="/shop/moviemusicgame">Movies, Music &amp; Games</a></li>
-    <li class="product-item"><a href="/shop/sportoutdoor">Sports &amp; Outdoors</a></li>
+    <li class="product-item">
+      <a href="/shop/products/5bea36ae697fd134bf25c4b6">Books</a>
+    </li>
+    <li class="product-item">
+      <a href="/shop/products/5bea36ae697fd134bf25c4b8">Home, Garden &amp; Tools</a>
+    </li>
+    <li class="product-item">
+      <a href="/shop/products/5bea36ae697fd134bf25c4b7">Electronics</a>
+    </li>
+    <li class="product-item">
+      <a href="/shop/products/5bea36ae697fd134bf25c4ba">Clothing</a>
+    </li>
+    <li class="product-item">
+      <a href="/shop/products/5bea36ae697fd134bf25c4bb">Toys, Kids &amp; Baby</a>
+    </li>
+    <li class="product-item">
+      <a href="/shop/products/5bea36ae697fd134bf25c4b9">Movies, Music &amp; Games</a>
+    </li>
+    <li class="product-item">
+      <a href="/shop/products/5bea36ae697fd134bf25c4bc">Sports &amp; Outdoors</a>
+    </li>
   </ul>
 </div>
+
+{{!-- Main Shopping page --}} {{#if isOnMainShopPage}} {{#if productsOnSale}} {{!-- Products on sale --}}
+<div class="sale-container">
+  <h1>Products On Sale</h1>
+  <div class="sale-box">
+    {{#each saleProducts}}
+    <div class="product-card">
+      <div class="image-card">
+        <img src="{{this.imageUrl}}" alt="{{this.name}}">
+      </div>
+      <div class="product-info">
+        <p class="product-name">{{this.name}}</p>
+        <p>Price:
+          <span>${{this.price}}</span> $
+          <span class="salePrice">{{this.salePrice}}</span></p>
+        <p>Description: {{this.description}}</p>
+        <a href="/shop/products/{{this.productType._id}}">{{this.productType.type}}</a>
+      </div>
+      <div class="product-forms">
+        <form action="/cart" method="POST">
+          <input type="text" name="productId" value="{{this._id}}" hidden>
+          <button>Add to Cart</button>
+        </form>
+        <form action="/add-product/edit=true" method="POST">
+          <input type="text" name="productId" value="{{this._id}}" hidden>
+          <button>Edit</button>
+        </form>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+</div>
+{{else}} {{!-- No Products on sale --}}
+<div class="no-sale-container">
+  <h1>Choose the product type your looking for from the links above to find the best deals</h1>
+</div>
+{{/if}} {{/if}} {{!-- Product Type page --}} {{#if isOnProductTypePage}} {{!-- Products in choosen product type in stock
+--}} {{#if hasProducts}}
+<main class="products-container">
+  <div class="title-card">
+    <h1>Explore {{pageTitle}}</h1>
+  </div>
+  <div class="products-box">
+
+    {{#each products}}
+    <div class="product-card">
+
+      <div class="image-card">
+        <img src="{{this.imageUrl}}" alt="{{this.name}}">
+      </div>
+
+      <div class="product-info">
+        <p class="product-name">{{this.name}}</p>
+        <p>{{#if this.sale}}Price:
+          <span>${{this.price}}</span> $
+          <span class="salePrice">{{this.salePrice}}</span>{{else}}Price: ${{this.price}}{{/if}}</p>
+        <p>Description: {{this.description}}</p>
+        <a href="/shop/products/{{this.productType._id}}">{{this.productType.type}}</a>
+      </div>
+      <div class="product-forms">
+        <form action="/cart" method="POST">
+          <input type="text" name="productId" value="{{this._id}}" hidden>
+          <button>Add to Cart</button>
+        </form>
+        <form action="/add-product/edit=true" method="POST">
+          <input type="text" name="productId" value="{{this._id}}" hidden>
+          <button>Edit</button>
+        </form>
+      </div>
+
+    </div>
+    {{/each}}
+
+  </div>
+</main>
+{{else}} {{!-- Products not in stock --}}
+<div class="no-products-container">
+  <h1>Sorry, we don't have anything in stock right now</h1>
+</div>
+{{/if}} {{/if}}

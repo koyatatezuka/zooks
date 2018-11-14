@@ -34,7 +34,6 @@ product.postAddProduct = async (req, res) => {
 	product
 		.save()
 		.then(result => {
-			console.log('Added Product', result);
 			res.redirect('/shop');
 		})
 		.catch(err => {

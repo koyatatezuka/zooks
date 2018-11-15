@@ -9,13 +9,12 @@ const shop = {};
 shop.getShop = async (req, res) => {
 	const products = await Product.find();
 	// retrieve all products on sale sort by price and limit to 8 results
-	const saleProducts = await Product
-	.find({ sale: true })
-	.populate('productType')
-	.sort('-price')
-	.limit(8)
+	const saleProducts = await Product.find({ sale: true })
+		.populate('productType')
+		.sort('-price')
+		.limit(8);
 	// add salePrice property
-	addSalesPrice(saleProducts)
+	addSalesPrice(saleProducts);
 
 	// finding if any products are on sale
 	const productsOnSale = products.some(p => p.sale === true);
@@ -25,6 +24,7 @@ shop.getShop = async (req, res) => {
 		activeShop: true,
 		isOnMainShopPage: true,
 		shopCss: true,
+		isAdmin: true,
 		productsOnSale,
 		saleProducts
 	});
@@ -40,8 +40,8 @@ shop.getProductType = async (req, res) => {
 
 		// if product is on sale add new sales price property
 		// helper function from util/helper
-		addSalesPrice(products)
-		
+		addSalesPrice(products);
+
 		const hasProducts = products.length > 0;
 
 		res.render('shop', {
@@ -50,6 +50,7 @@ shop.getProductType = async (req, res) => {
 			hasProducts,
 			isOnProductTypePage: true,
 			activeShop: true,
+			isAdmin: true,
 			shopCss: true
 		});
 	} catch (err) {
@@ -57,22 +58,55 @@ shop.getProductType = async (req, res) => {
 	}
 };
 
-// handle get cart request
-shop.getCart = (req, res) => {
-	res.render('cart', {
-		pageTitle: 'Cart',
-		activeCart: true,
-		cartCss: true
-	});
+// handle get request for specfic product
+shop.getProduct = async (req, res) => {
+	try {
+		const product = await Product.findOne({ _id: req.params.productId }).populate(
+			'productType'
+		);
+
+		if (product.sale) {
+			product.salePrice = (product.price - product.price * 0.25).toFixed(2);
+		}
+
+		res.render('shop', {
+			pageTitle: product.name,
+			isOnIndividualProductPage: true,
+			activeShop: true,
+			isAdmin: true,
+			shopCss: true,
+			product
+		});
+	} catch (err) {
+		res.render('404', { pageTitle: 'Page Not Found' });
+	}
 };
 
-// handle get order request
-shop.getOrder = (req, res) => {
-	res.render('order', {
-		pageTitle: 'Order',
-		activeOrder: true,
-		orderCss: true
-	});
+// handle post request by search input
+shop.postSearchProduct = async (req, res) => {
+	const searchInput = req.body.product.split(' ');
+	const searchRegExpArray = searchInput.map(word => new RegExp('.*' + word + '.*', 'i'));
+
+	try {
+		// find products by search word regular expression
+		const products = await Product.find({ name: { $in: searchRegExpArray } }).populate(
+			'productType'
+		);
+
+		// add sales price property if any is on sale
+		addSalesPrice(products);
+
+		res.render('shop', {
+			pageTitle: req.body.product,
+			activeShop: true,
+			isOnSearchPage: true,
+			shopCss: true,
+			isAdmin: true,
+			products,
+		});
+	} catch (err) {
+
+	}
 };
 
 module.exports = shop;

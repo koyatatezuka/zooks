@@ -1,0 +1,45 @@
+<main class="products-container">
+  <div class="title-card">
+    <h1>Explore {{pageTitle}}</h1>
+  </div>
+  <div class="products-box">
+
+    {{#each products}}
+    <div class="product-card">
+
+      <div class="image-card">
+        <div class="zoom">
+           <a href="/shop/product/{{this._id}}"><img src="{{this.imageUrl}}" alt="{{this.name}}"></a>
+        </div>     
+      </div>
+      <div class="product-info">
+        <p class="product-name">{{this.name}}</p>
+        <p>{{#if this.sale}}Price:
+          <span>${{this.price}}</span> $
+          <span class="salePrice">{{this.salePrice}}</span>{{else}}Price: ${{this.price}}{{/if}}</p>
+        <p>Description: {{this.description}}</p>
+        <a href="/shop/products/{{this.productType._id}}">{{this.productType.type}}</a>
+      </div>
+      <div class="product-forms">
+        {{#if ../isAdmin}}
+        <form action="/product/edit-product" method="POST">
+          <input type="text" name="productId" value="{{this._id}}" hidden>
+          <button>Edit</button>
+        </form>
+        <form action="/product/delete-product" method="POST">
+          <input type="text" name="productId" value="{{this._id}}" hidden>
+          <button>Delete</button>
+        </form>
+        {{else}}
+         <form action="/cart" method="POST">
+          <input type="text" name="productId" value="{{this._id}}" hidden>
+          <button>Add to Cart</button>
+        </form>
+        {{/if}}
+      </div>
+
+    </div>
+    {{/each}}
+
+  </div>
+</main>

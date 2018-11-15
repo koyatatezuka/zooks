@@ -1,43 +1,44 @@
 <div class="product-container">
 
-  <form class="product-form" action="{{#if editing}}/edit-product{{else}}/add-product{{/if}}" method="POST">
+  <form class="product-form" action="{{#if editing}}/product/post-edit{{else}}/product{{/if}}" method="POST">
     <div class="form-control">
       <label for="name">Product Name</label>
-      <input type="text" name="name" id="name" value="" required >
+      <input type="text" name="name" id="name" value="{{#if editing}}{{product.name}}{{/if}}" required >
     </div>
     <div class="form-control">
       <label for="imageUrl">Image Url</label>
-      <input type="text" name="imageUrl" id="imageUrl" value="" required>
+      <input type="text" name="imageUrl" id="imageUrl" value="{{#if editing}}{{product.imageUrl}}{{/if}}" required>
     </div>
     <div class="form-control">
       <label for="price">Price</label>
-      <input type="number" name="price" id="price" step="0.01" value="" required>
+      <input type="number" name="price" id="price" step="0.01" value="{{#if editing}}{{product.price}}{{/if}}" required>
     </div>
     <div class="form-control">
       <label for="description">Product Description</label>
-      <textarea name="description" id="description" rows="5"  required></textarea>
+      <textarea name="description" id="description" rows="5" required>{{#if editing}}{{product.description}}{{/if}}</textarea>
     </div>
     <div class="form-control">
       <label for="type">Type</label>
       <select name="type" id="type">
-        <option value="5bea36ae697fd134bf25c4b6">Books</option>
-        <option value="5bea36ae697fd134bf25c4b7">Electronics</option>
-        <option value="5bea36ae697fd134bf25c4b8">Home, Garden &amp; Tools</option>
-        <option value="5bea36ae697fd134bf25c4b9">Movies, Music &amp; Games</option>
-        <option value="5bea36ae697fd134bf25c4ba">Clothing</option>
-        <option value="5bea36ae697fd134bf25c4bb">Toys, Kids &amp; Baby</option>
-        <option value="5bea36ae697fd134bf25c4bc">Sports &amp; Outdoors</option>
+        <option value="5bea36ae697fd134bf25c4b6" {{#if editing}}{{#if books}}selected{{/if}}{{/if}}>Books</option>
+        <option value="5bea36ae697fd134bf25c4b7" {{#if editing}}{{#if electronics}}selected{{/if}}{{/if}}>Electronics</option>
+        <option value="5bea36ae697fd134bf25c4b8" {{#if editing}}{{#if home}}selected{{/if}}{{/if}}>Home, Garden &amp; Tools</option>
+        <option value="5bea36ae697fd134bf25c4b9" {{#if editing}}{{#if movies}}selected{{/if}}{{/if}}>Movies, Music &amp; Games</option>
+        <option value="5bea36ae697fd134bf25c4ba" {{#if editing}}{{#if clothing}}selected{{/if}}{{/if}}>Clothing</option>
+        <option value="5bea36ae697fd134bf25c4bb" {{#if editing}}{{#if toys}}selected{{/if}}{{/if}}>Toys, Kids &amp; Baby</option>
+        <option value="5bea36ae697fd134bf25c4bc" {{#if editing}}{{#if sports}}selected{{/if}}{{/if}}>Sports &amp; Outdoors</option>
       </select>
     </div>
     <div class="form-control">
       <p>On Sale:</p>
       <div class="sale">
-        <input type="radio" id="no-sale" name="sale" value="no" checked>
+        <input type="radio" id="no-sale" name="sale" value="no" {{#if editing}}{{#if notOnSale}}checked{{/if}}{{else}}checked{{/if}}>
         <label for="no">Not on Sale</label>
-        <input type="radio" id="on-sale" name="sale" value="yes">
+        <input type="radio" id="on-sale" name="sale" value="yes" {{#if editing}}{{#if onSale}}checked{{/if}}{{/if}}>
         <label for="yes">On Sale</label>
       </div>
     </div>
+    {{#if editing}}<input type="text" name="_id" value="{{product._id}}" hidden>{{/if}}
     <button class="btn" type="submit">{{#if editing}}Edit{{else}}Add Product{{/if}}</button>
   </form>
 

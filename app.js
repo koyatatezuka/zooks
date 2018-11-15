@@ -4,7 +4,8 @@ const path = require('path');
 const handlebars = require('express-handlebars');
 const mongoose = require('mongoose');
 
-const { home, addProduct, shop, login } = require('./routes/index');
+const { home, product, shop, login, cart, order } = require('./routes/index');
+
 const getError = require('./controllers/error');
 
 const app = express();
@@ -22,14 +23,18 @@ app.engine(
 );
 app.set('view engine', 'hbs');
 
+// middleware to parse body and read static files
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // routes
 app.use('/', home);
-app.use('/add-product', addProduct);
+app.use('/product', product);
 app.use('/shop', shop);
 app.use('/log', login);
+app.use('/cart', cart);
+app.use('/order', order);
+// confirmation routes need to be added ----------------------------------
 
 // return 404 for unknown routes
 app.use(getError);
@@ -51,4 +56,3 @@ mongoose
 	.catch(err => {
 		console.log(err);
 	});
-

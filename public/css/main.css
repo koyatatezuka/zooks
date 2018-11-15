@@ -7,6 +7,15 @@ body {
 	font-family: 'KoHo', sans-serif;
 }
 
+button:active {
+	outline: none;
+	border: none;
+}
+
+button:focus {
+	outline: 0;
+}
+
 /* Header */
 
 .header-container {

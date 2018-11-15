@@ -1,0 +1,34 @@
+<div class="individual-product_container">
+  <h1>{{ product.name }}</h1>
+  <div class="sale-box">
+    <div class="individual-product_card">
+      <div class="individual-image_card">
+       <img src="{{product.imageUrl}}" alt="{{product.name}}">
+      </div>
+      <div class="product-info">
+        <p>{{#if product.sale}}Price:
+          <span>${{product.price}}</span> $
+          <span class="salePrice">{{product.salePrice}}</span>{{else}}Price: ${{product.price}}{{/if}}</p>
+        <p>Description: {{product.description}}</p>
+        <a href="/shop/products/{{product.productType._id}}">{{product.productType.type}}</a>
+      </div>
+      <div class="product-forms individual">
+        {{#if isAdmin }}
+        <form action="/product/edit-product" method="POST">
+          <input type="text" name="productId" value="{{product._id}}" hidden>
+          <button>Edit</button>
+        </form>
+        <form action="/product/delete-product" method="POST">
+          <input type="text" name="productId" value="{{product._id}}" hidden>
+          <button>Delete</button>
+        </form>
+        {{else}}
+         <form action="/cart" method="POST">
+          <input type="text" name="productId" value="{{product._id}}" hidden>
+          <button>Add to Cart</button>
+        </form>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</div>

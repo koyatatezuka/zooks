@@ -1,6 +1,8 @@
 module.exports = {
 	home: require('./home'),
-	addProduct: require('./add-product'),
+	product: require('./product'),
 	shop: require('./shop'),
-	login: require('./login')
+	login: require('./login'),
+	cart: require('./cart'),
+	order: require('./order')
 };

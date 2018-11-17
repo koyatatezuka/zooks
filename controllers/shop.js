@@ -24,7 +24,7 @@ shop.getShop = async (req, res) => {
 		activeShop: true,
 		isOnMainShopPage: true,
 		shopCss: true,
-		isAdmin: true,
+		isAdmin: false,
 		productsOnSale,
 		saleProducts
 	});
@@ -50,7 +50,7 @@ shop.getProductType = async (req, res) => {
 			hasProducts,
 			isOnProductTypePage: true,
 			activeShop: true,
-			isAdmin: true,
+			isAdmin: false,
 			shopCss: true
 		});
 	} catch (err) {
@@ -73,7 +73,7 @@ shop.getProduct = async (req, res) => {
 			pageTitle: product.name,
 			isOnIndividualProductPage: true,
 			activeShop: true,
-			isAdmin: true,
+			isAdmin: false,
 			shopCss: true,
 			product
 		});
@@ -101,7 +101,7 @@ shop.postSearchProduct = async (req, res) => {
 			activeShop: true,
 			isOnSearchPage: true,
 			shopCss: true,
-			isAdmin: true,
+			isAdmin: false,
 			products,
 		});
 	} catch (err) {

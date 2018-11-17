@@ -5,6 +5,7 @@ const handlebars = require('express-handlebars');
 const mongoose = require('mongoose');
 
 const { home, product, shop, login, cart, order } = require('./routes/index');
+const User = require('./models/user');
 
 const getError = require('./controllers/error');
 
@@ -26,6 +27,19 @@ app.set('view engine', 'hbs');
 // middleware to parse body and read static files
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+// temp middleware to inject user ------------------------------
+
+app.use(async (req, res, next) => {
+	try {
+		const user = await User.findOne({ _id: '5bee2a5b65522c1220913145' });
+
+		req.user = user;
+		next();
+	} catch (err) {
+		console.log('Doesnt exist bruh...');
+	}
+});
 
 // routes
 app.use('/', home);

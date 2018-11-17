@@ -1,0 +1,40 @@
+{{#if ordersExist}}
+  <main class="order-container">
+    {{#each orders}}
+      <div class="order-card">
+        <h2>Order#{{this._id}}</h2>
+        <div class="info-container">
+          <div class="shipping-info">
+            <h3>Shipping Address</h3>
+            <p>Street: {{this.user.address.street}}</p>
+            <p>City: {{this.user.address.city}}</p>
+            <p>State: {{this.user.address.state}}</p>
+            <p>Zip: {{this.user.address.zip}}</p>
+          </div>
+          <div class="order-info">
+            <h3>Order Information</h3>
+            {{#each this.orderItems}}
+              <div class="product-info">
+                <p>{{this.productId.name}}</p>
+                <p>Qty: {{this.quantity}}</p>
+              </div>
+
+            {{/each}}
+            <p>total: {{this.total}}</p>
+          </div>
+          <div class="delivery-info">
+            <h3>Delivery Information</h3>
+            <div class="delivery-dates">
+              <p>Ordered On: {{this.orderDate}}</p>
+              <p>Estimated Arrival: {{this.ETA}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+  </main>  
+{{else}}
+  <div class="no-orders">
+    <h1>No Orders</h1>
+  </div>
+{{/if}}

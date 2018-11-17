@@ -1,0 +1,36 @@
+{{#if hasProduct}}
+<h1>Cart</h1>
+<main class="product-container">
+  <div class="product-box">
+{{#each cartArray}}
+    <div class="product-card">
+      <div class="image">
+        <img src="{{this.productId.imageUrl}}" alt="{{this.productId.name}}">
+      </div>
+      <div class="product-info">
+        <p>Product: {{this.productId.name}}</p>
+        <p>Total: ${{this.total}}</p>
+        <p>Qty: {{this.quantity}}</p>
+        <form action="/cart/delete" method="POST">
+          <input type="text" name="cartItemId" value="{{this._id}}" hidden >
+          <button type="submit">Delete</button>
+        </form>
+      </div>
+    </div>
+{{/each}}
+    <div class="order-action">
+      <p>Total: ${{total}}</p>
+      <form action="/order" method="POST">
+      <input type="text" name="total" value="{{total}}" hidden>
+      <input type="text" name="userId" value="{{user._id}}" hidden>
+      <button type="submit">Order</button>
+      </form>
+    </div>
+  </div>
+</main>
+
+{{else}}
+  <div class="no-product">
+    <h1>Nothing In Cart</h1>
+  </div>
+{{/if}}

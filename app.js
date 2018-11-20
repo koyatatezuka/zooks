@@ -107,7 +107,7 @@ passport.use(
 // connect to mongodb
 mongoose
 	.connect(
-		`mongodb+srv://${MONGO_USER}:${MONGO_PASS}@cluster0-q8q4b.mongodb.net/${MONGO_DEFAULT_DATABASE}?retryWrites=true`,
+		process.env.MONGOLAB_URI || `mongodb+srv://${MONGO_USER}:${MONGO_PASS}@cluster0-q8q4b.mongodb.net/${MONGO_DEFAULT_DATABASE}?retryWrites=true`,
 		{ useNewUrlParser: true }
 	)
 	.then(result => {

@@ -9,7 +9,7 @@ const session = require('express-session');
 const bcrypt = require('bcryptjs');
 
  //only use for local dev
-//const { mongoPassword, mongoUser, mongoDefaultDataBase } = require('./config')
+// const { mongoPassword, mongoUser, mongoDefaultDataBase } = require('./config')
 const { 
 	home, 
 	product, 

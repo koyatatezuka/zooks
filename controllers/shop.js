@@ -65,6 +65,8 @@ shop.getProductType = async (req, res) => {
 			productType: req.params.productTypeId
 		}).populate('productType');
 
+		
+
 		// if product is on sale add new sales price property
 		// helper function from util/helper
 		addSalesPrice(products);
@@ -106,6 +108,12 @@ shop.getProduct = async (req, res) => {
 			cartQty = req.user.cart.reduce((acc, qty) => acc + qty.quantity, 0)
 		}
 	} 
+	// debugg
+	const pus = await Product.findOne({ _id: req.params.productId }).populate(
+		'productType'
+	);
+
+	console.log(pus)
 
 	try {
 		const product = await Product.findOne({ _id: req.params.productId }).populate(

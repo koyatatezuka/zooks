@@ -8,7 +8,8 @@ const LocalStrategy = require('passport-local').Strategy;
 const session = require('express-session');
 const bcrypt = require('bcryptjs');
 
-const { mongoPassword, mongoUser, mongoDefaultDataBase } = require('./config')
+ //only use for local dev
+//const { mongoPassword, mongoUser, mongoDefaultDataBase } = require('./config')
 const { 
 	home, 
 	product, 
@@ -25,9 +26,11 @@ const app = express();
 
 // setup env
 const PORT = process.env.PORT || 3000;
-const MONGO_PASS = mongoPassword;
-const MONGO_USER = mongoUser;
-const MONGO_DEFAULT_DATABASE = mongoDefaultDataBase;
+
+	 //only use for local dev
+// const MONGO_PASS = mongoPassword;
+// const MONGO_USER = mongoUser;
+// const MONGO_DEFAULT_DATABASE = mongoDefaultDataBase;
 
 // hbs setup
 app.engine(

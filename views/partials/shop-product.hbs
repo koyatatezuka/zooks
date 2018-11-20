@@ -23,8 +23,8 @@
           <button>Delete</button>
         </form>
         {{else}}
-         <form action="/cart" method="POST">
-          <input type="text" name="productId" value="{{product._id}}" hidden>
+         <form action="{{#if isSignedIn}}/cart{{else}}/log{{/if}}" method="{{#if isSignedIn}}POST{{else}}GET{{/if}}">
+          <input type="text" name="productId" value="{{this._id}}" hidden>
           <button>Add to Cart</button>
         </form>
         {{/if}}

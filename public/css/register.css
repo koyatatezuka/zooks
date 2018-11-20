@@ -1,0 +1,72 @@
+.register-container {
+	width: 100vw;
+	margin-top: 3rem;
+	display: flex;
+	justify-content: center;
+	padding: 1rem 0;
+}
+
+.form {
+	width: 25rem;
+	display: flex;
+	flex-direction: column;
+}
+
+.user-info {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 2rem;
+}
+
+.user-info h1 {
+	margin-bottom: 1rem;
+	font-weight: 200;
+	text-align: center;
+}
+
+.user-info label {
+	margin-bottom: 0.5rem;
+	font-size: 1.2rem;
+	font-weight: 300;
+}
+
+.user-info input {
+	font-size: 1rem;
+	font-weight: 300;
+	padding: 0.2rem 0.5rem;
+	outline: none;
+	border-radius: 0.3rem;
+	border: 1px solid rgb(187, 187, 187);
+}
+
+.user-info input:focus {
+	border-color: black;
+}
+
+.form button {
+	width: 10rem;
+	margin: 0 auto;
+	font-size: 1.2rem;
+	padding: 0.2rem 0;
+	font-weight: 300;
+	letter-spacing: 0.1rem;
+	border-radius: 0.3rem;
+	border: 1px solid black;
+	cursor: pointer;
+}
+
+.form button:hover {
+	color: white;
+	background-color: black;
+}
+
+.email-exists {
+	margin-top: 0.2rem;
+	color: rgb(255, 0, 0);
+}
+
+@media (max-width: 500px) {
+	.form {
+		width: 20rem;
+	}
+}

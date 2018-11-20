@@ -7,6 +7,19 @@ const shop = {};
 
 // handle get shop request
 shop.getShop = async (req, res) => {
+	let isAdmin = false;
+	let isSignedIn = false;
+	let cartQty = 0;
+
+	if (req.user) {
+		isAdmin = req.user.admin;
+		isSignedIn = true
+
+		if (req.user.cart.length > 0) {
+			cartQty = req.user.cart.reduce((acc, qty) => acc + qty.quantity, 0)
+		}
+	} 
+
 	const products = await Product.find();
 	// retrieve all products on sale sort by price and limit to 8 results
 	const saleProducts = await Product.find({ sale: true })
@@ -24,7 +37,9 @@ shop.getShop = async (req, res) => {
 		activeShop: true,
 		isOnMainShopPage: true,
 		shopCss: true,
-		isAdmin: false,
+		isSignedIn,
+		isAdmin,
+		cartQty,
 		productsOnSale,
 		saleProducts
 	});
@@ -32,6 +47,18 @@ shop.getShop = async (req, res) => {
 
 // handle get shop product type request
 shop.getProductType = async (req, res) => {
+	let isAdmin = false;
+	let isSignedIn = false;
+	let cartQty = 0;
+
+	if (req.user) {
+		isAdmin = req.user.admin;
+		isSignedIn = true
+
+		if (req.user.cart.length > 0) {
+			cartQty = req.user.cart.reduce((acc, qty) => acc + qty.quantity, 0)
+		}
+	} 
 	try {
 		const productTypeObj = await Type.findOne({ _id: req.params.productTypeId });
 		const products = await Product.find({
@@ -50,16 +77,36 @@ shop.getProductType = async (req, res) => {
 			hasProducts,
 			isOnProductTypePage: true,
 			activeShop: true,
-			isAdmin: false,
+			isAdmin,
+			isSignedIn,
+			cartQty,
 			shopCss: true
 		});
 	} catch (err) {
-		res.render('404', { pageTitle: 'Page Not Found' });
+		res.render('404', {
+			pageTitle: 'Page Not Found',
+			isAdmin,
+			isSignedIn,
+			cartQty
+		});
 	}
 };
 
 // handle get request for specfic product
 shop.getProduct = async (req, res) => {
+	let isAdmin = false;
+	let isSignedIn = false;
+	let cartQty = 0;
+
+	if (req.user) {
+		isAdmin = req.user.admin;
+		isSignedIn = true
+
+		if (req.user.cart.length > 0) {
+			cartQty = req.user.cart.reduce((acc, qty) => acc + qty.quantity, 0)
+		}
+	} 
+
 	try {
 		const product = await Product.findOne({ _id: req.params.productId }).populate(
 			'productType'
@@ -73,12 +120,19 @@ shop.getProduct = async (req, res) => {
 			pageTitle: product.name,
 			isOnIndividualProductPage: true,
 			activeShop: true,
-			isAdmin: false,
+			isAdmin,
 			shopCss: true,
-			product
+			product,
+			isSignedIn,
+			cartQty
 		});
 	} catch (err) {
-		res.render('404', { pageTitle: 'Page Not Found' });
+		res.render('404', {
+			pageTitle: 'Page Not Found',
+			isAdmin,
+			isSignedIn,
+			cartQty
+		});
 	}
 };
 
@@ -86,6 +140,14 @@ shop.getProduct = async (req, res) => {
 shop.postSearchProduct = async (req, res) => {
 	const searchInput = req.body.product.split(' ');
 	const searchRegExpArray = searchInput.map(word => new RegExp('.*' + word + '.*', 'i'));
+
+	let isAdmin = false;
+	let isSignedIn = false;
+
+	if (req.user) {
+		isAdmin = req.user.admin;
+		isSignedIn = true
+	} 
 
 	try {
 		// find products by search word regular expression
@@ -101,11 +163,21 @@ shop.postSearchProduct = async (req, res) => {
 			activeShop: true,
 			isOnSearchPage: true,
 			shopCss: true,
-			isAdmin: false,
-			products,
+			isAdmin,
+			isSignedIn,
+			productFound: products.length > 0,
+			products
 		});
 	} catch (err) {
-
+		res.status(400).render('shop', {
+			pageTitle: req.body.product,
+			activeShop: true,
+			isOnSearchPage: true,
+			shopCss: true,
+			isAdmin,
+			isSignedIn,
+			productFound: false
+		});
 	}
 };
 

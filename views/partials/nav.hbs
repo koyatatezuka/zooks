@@ -19,7 +19,7 @@
 		<nav class="mobile-nav-container">
 			<ul class="mobile-nav-list">
 				<li class="mobile-nav-item sign">
-					<a href="{{#if isSignedIn}}/log/out{{else}}/log/in{{/if}}">{{#if isSignedIn}}<i class="fas fa-user"></i>Sign Out{{else}}<i class="fas fa-user"></i>Sign In{{/if}}</a>
+					<a href="{{#if isSignedIn}}/log/out{{else}}/log{{/if}}">{{#if isSignedIn}}<i class="fas fa-user"></i>Sign Out{{else}}<i class="fas fa-user"></i>Sign In{{/if}}</a>
 				</li>
 				<li class="mobile-nav-item {{#if activeHome}}active{{/if}}">
 					<a href="/">Home</a>
@@ -27,11 +27,13 @@
 				<li class="mobile-nav-item {{#if activeShop}}active{{/if}}">
 					<a href="/shop">Shop</a>
 				</li>
+				{{#if isAdmin}}
 				<li class="mobile-nav-item {{#if activeProduct}}active{{/if}}">
 					<a href="/product">Product</a>
 				</li>
+				{{/if}}
 				<li class="mobile-nav-item {{#if activeCart}}active{{/if}}">
-					<a href="/cart">Cart(0)
+					<a href="/cart">Cart({{cartQty}})
 						<i class="fas fa-shopping-cart"></i>
 					</a>
 				</li>
@@ -68,18 +70,20 @@
 				<li class="nav-item {{#if activeShop}}active{{/if}}">
 					<a href="/shop">Shop</a>
 				</li>
+				{{#if isAdmin}}
 				<li class="nav-item {{#if activeAddProduct}}active{{/if}}">
 					<a href="/product">Product</a>
 				</li>
+				{{/if}}
 				<li class="nav-item {{#if activeCart}}active{{/if}}">
-					<a href="/cart">Cart(0)<i class="fas fa-shopping-cart"></i>
+					<a href="/cart">Cart({{cartQty}})<i class="fas fa-shopping-cart"></i>
 					</a>
 				</li>
 				<li class="nav-item {{#if activeOrder}}active{{/if}}">
 					<a href="/order">Order</a>
 				</li>
 				<li class="nav-item sign">
-					<a href="{{#if isSignedIn}}/log/out{{else}}/log/in{{/if}}">{{#if isSignedIn}}<i class="fas fa-user"></i>Sign Out{{else}}<i class="fas fa-user"></i>Sign In{{/if}}</a>
+					<a href="{{#if isSignedIn}}/log/out{{else}}/log{{/if}}">{{#if isSignedIn}}<i class="fas fa-user"></i>Sign Out{{else}}<i class="fas fa-user"></i>Sign In{{/if}}</a>
 				</li>
 			</ul>
 		</nav>

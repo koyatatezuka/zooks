@@ -6,11 +6,33 @@ const product = {};
 
 // handle get request
 product.getAddProduct = (req, res) => {
-	res.render('product', {
-		pageTitle: 'Add Product',
-		activeAddProduct: true,
-		productCss: true
-	});
+	let isAdmin = false;
+	let isSignedIn = false;
+	let cartQty = 0;
+
+	if (req.user) {
+		isAdmin = req.user.admin;
+		isSignedIn = true
+
+		if (req.user.cart.length > 0) {
+			cartQty = req.user.cart.reduce((acc, qty) => acc + qty.quantity, 0)
+		}
+	} 
+
+	if (isAdmin) {
+		res.render('product', {
+			pageTitle: 'Add Product',
+			activeAddProduct: true,
+			productCss: true,
+			isAdmin,
+			isSignedIn,
+			cartQty
+		});
+	} else {
+		res.status(401).render('401', {
+			pageTitle: 'Unauthorized'
+		});
+	}
 };
 
 // handle post request for adding product
@@ -40,6 +62,19 @@ product.postAddProduct = async (req, res) => {
 
 // handle post request for getting all input info on edit
 product.postEditProduct = async (req, res) => {
+	let isAdmin = false;
+	let isSignedIn = false;
+	let cartQty = 0;
+
+	if (req.user) {
+		isAdmin = req.user.admin;
+		isSignedIn = true
+
+		if (req.user.cart.length > 0) {
+			cartQty = req.user.cart.reduce((acc, qty) => acc + qty.quantity, 0)
+		}
+	} 
+
 	const product = await Product.findOne({ _id: req.body.productId }).populate(
 		'productType'
 	);
@@ -82,22 +117,32 @@ product.postEditProduct = async (req, res) => {
 			break;
 	}
 
-	res.render('product', {
-		editing: true,
-		pageTitle: 'Edit Product',
-		activeAddProduct: true,
-		productCss: true,
-		onSale,
-		notOnSale,
-		product,
-		books,
-		home,
-		electronics,
-		clothing,
-		toys,
-		movies,
-		sports
-	});
+	if (isAdmin) {
+		res.render('product', {
+			editing: true,
+			pageTitle: 'Edit Product',
+			activeAddProduct: true,
+			productCss: true,
+			isSignedIn,
+			isAdmin,
+			cartQty,
+			onSale,
+			notOnSale,
+			product,
+			books,
+			home,
+			electronics,
+			clothing,
+			toys,
+			movies,
+			sports
+		});
+	} else {
+		res.status(401).render('401', {
+			pageTitle: 'Unauthorized'
+		});
+	}
+	
 };
 
 // handle posting the finish edited product

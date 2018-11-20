@@ -8,16 +8,30 @@ const order = {};
 
 // handle get order request
 order.getOrder = async (req, res) => {
+	let isAdmin = false;
+	let isSignedIn = false;
+	let cartQty = 0;
+
+	if (req.user) {
+		isAdmin = req.user.admin;
+		isSignedIn = true
+
+		if (req.user.cart.length > 0) {
+			cartQty = req.user.cart.reduce((acc, qty) => acc + qty.quantity, 0)
+		}
+	} 
 	// if orders exist for user
 	try {
 		// Array of order objects by user
 		const orders = await Order.find({ user: req.user._id })
-
 			 .populate('user')
 			 .populate({
 				 path: 'orderItems.productId',
 				 model: 'Product'
 			 });
+		let ordersExist = false;
+
+		if (orders.length > 0) ordersExist = true;
 		
 		// util helper to add orderDate property to each order object
 		addOrderDate(orders)
@@ -27,16 +41,22 @@ order.getOrder = async (req, res) => {
 
 		res.render('order', {
 			pageTitle: 'Order',
-			ordersExist: true,
 			activeOrder: true,
 			orderCss: true,
-			orders
+			ordersExist,
+			isAdmin,
+			isSignedIn,
+			orders,
+			cartQty
 		});
 	} catch (err) {
 		res.render('order', {
 			pageTitle: 'Order',
 			activeOrder: true,
-			orderCss: true
+			orderCss: true,
+			isAdmin,
+			isSignedIn,
+			cartQty
 		});
 	}
 };

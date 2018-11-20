@@ -25,9 +25,9 @@ const app = express();
 
 // setup env
 const PORT = process.env.PORT || 3000;
-const MONGO_PASS = process.env.MONGO_PASS || mongoPassword;
-const MONGO_USER = process.env.MONGO_USER || mongoUser;
-const MONGO_DEFAULT_DATABASE = process.env.MONGO_DEFAULT_DATABASE || mongoDefaultDataBase;
+const MONGO_PASS = mongoPassword;
+const MONGO_USER = mongoUser;
+const MONGO_DEFAULT_DATABASE = mongoDefaultDataBase;
 
 // hbs setup
 app.engine(
@@ -107,7 +107,7 @@ passport.use(
 // connect to mongodb
 mongoose
 	.connect(
-		process.env.MONGOLAB_URI || `mongodb+srv://${MONGO_USER}:${MONGO_PASS}@cluster0-q8q4b.mongodb.net/${MONGO_DEFAULT_DATABASE}?retryWrites=true`,
+		process.env.MONGODB_URI || `mongodb+srv://${MONGO_USER}:${MONGO_PASS}@cluster0-q8q4b.mongodb.net/${MONGO_DEFAULT_DATABASE}?retryWrites=true`,
 		{ useNewUrlParser: true }
 	)
 	.then(result => {

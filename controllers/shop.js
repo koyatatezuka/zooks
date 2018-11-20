@@ -1,3 +1,5 @@
+const ObjectId = require('mongodb').ObjectID
+
 const Type = require('../models/type');
 const Product = require('../models/product');
 const { addSalesPrice } = require('../util/helper');
@@ -109,7 +111,7 @@ shop.getProduct = async (req, res) => {
 		}
 	} 
 	// debug ----------------------------------------
-	const pus = await Product.findOne({ "_id" : "5beb958f7b50c05bf0b9c5d1" }).populate(
+	const pus = await Product.findOne({ _id : ObjectId("5beb958f7b50c05bf0b9c5d1") }).populate(
 		'productType'
 	);
 

@@ -1,0 +1,5 @@
+{
+	"mongoPassword": "zookiezooks1",
+	"mongoUser": "koyata",
+	"mongoDefaultDataBase": "zooks"
+}

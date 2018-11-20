@@ -110,13 +110,6 @@ shop.getProduct = async (req, res) => {
 			cartQty = req.user.cart.reduce((acc, qty) => acc + qty.quantity, 0)
 		}
 	} 
-	// debug ----------------------------------------
-	const pus = await Product.findOne({ _id : ObjectId("5beb958f7b50c05bf0b9c5d1") }).populate(
-		'productType'
-	);
-
-	console.log(pus, req.params.productId)
-	// debug -------------------------------------
 
 	try {
 		const product = await Product.findOne({ _id: req.params.productId }).populate(

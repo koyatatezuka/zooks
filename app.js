@@ -8,8 +8,8 @@ const LocalStrategy = require('passport-local').Strategy;
 const session = require('express-session');
 const bcrypt = require('bcryptjs');
 
- //only use for local dev
-// const { mongoPassword, mongoUser, mongoDefaultDataBase } = require('./config')
+
+const { mongoPassword, mongoUser, mongoDefaultDataBase } = require('./config')
 const { 
 	home, 
 	product, 
@@ -27,10 +27,9 @@ const app = express();
 // setup env
 const PORT = process.env.PORT || 3000;
 
-	 //only use for local dev
-// const MONGO_PASS = mongoPassword;
-// const MONGO_USER = mongoUser;
-// const MONGO_DEFAULT_DATABASE = mongoDefaultDataBase;
+const MONGO_PASS = mongoPassword;
+const MONGO_USER = mongoUser;
+const MONGO_DEFAULT_DATABASE = mongoDefaultDataBase;
 
 // hbs setup
 app.engine(
@@ -110,7 +109,7 @@ passport.use(
 // connect to mongodb
 mongoose
 	.connect(
-		process.env.MONGOLAB_URI || `mongodb+srv://${MONGO_USER}:${MONGO_PASS}@cluster0-q8q4b.mongodb.net/${MONGO_DEFAULT_DATABASE}?retryWrites=true`,
+		 `mongodb+srv://${MONGO_USER}:${MONGO_PASS}@cluster0-q8q4b.mongodb.net/${MONGO_DEFAULT_DATABASE}?retryWrites=true`,
 		{ useNewUrlParser: true }
 	)
 	.then(result => {

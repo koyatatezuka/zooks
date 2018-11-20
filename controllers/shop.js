@@ -109,7 +109,7 @@ shop.getProduct = async (req, res) => {
 		}
 	} 
 	// debug ----------------------------------------
-	const pus = await Product.findOne({ _id : { $iod: '5beb958f7b50c05bf0b9c5d1'} }).populate(
+	const pus = await Product.findOne({ "_id" : "5beb958f7b50c05bf0b9c5d1" }).populate(
 		'productType'
 	);
 

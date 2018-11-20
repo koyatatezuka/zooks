@@ -1,0 +1,18 @@
+<h1>Sign In</h1>
+<div class="login-container">
+  <div class="login-card">
+    <form action="/log/in" method="POST">
+      {{#if failedAttempt}}<p class="failed-attempt">Incorrect Email/Password</p>{{/if}}
+      <div class="user-input">
+        <label for="email">E-mail</label>
+        <input type="email" name="email" required>
+      </div>
+      <div class="user-input">
+        <label for="password">Password</label>
+        <input type="password" name="password" required>
+      </div>
+      <button type="submit">Sign-In</button>
+      <a href="/log/register">New User</a>
+    </form>
+  </div>
+</div>

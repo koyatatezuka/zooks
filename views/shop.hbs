@@ -55,5 +55,11 @@
 {{!-- Search Product page --}}
 
 {{#if isOnSearchPage}} 
-  {{> shop-search}}
+  {{#if productFound}}
+    {{> shop-search}}
+  {{else}}
+    <div class="product-not_found">
+      <h1>Could not find {{pageTitle}}...</h1>
+    </div>
+  {{/if}}
 {{/if}}

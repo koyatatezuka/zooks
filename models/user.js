@@ -69,7 +69,7 @@ userSchema.methods.addToCart = async function(product) {
 	let price = product.price;
 	// if product of sale change to sale price
 	if (product.sale) {
-		price = parseInt((product.price - (product.price * .25)).toFixed(2))
+		price = parseFloat((product.price - (product.price * .25)).toFixed(2))
 	}
 
   // copy cart array into updated array

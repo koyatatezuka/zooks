@@ -3,8 +3,19 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const handlebars = require('express-handlebars');
 const mongoose = require('mongoose');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const session = require('express-session');
+const bcrypt = require('bcryptjs');
 
-const { home, product, shop, login, cart, order } = require('./routes/index');
+const { 
+	home, 
+	product, 
+	shop, 
+	login, 
+	cart, 
+	order 
+} = require('./routes/index');
 const User = require('./models/user');
 
 const getError = require('./controllers/error');
@@ -25,21 +36,17 @@ app.engine(
 app.set('view engine', 'hbs');
 
 // middleware to parse body and read static files
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
-
-// temp middleware to inject user ------------------------------
-
-app.use(async (req, res, next) => {
-	try {
-		const user = await User.findOne({ _id: '5bee2a5b65522c1220913145' });
-
-		req.user = user;
-		next();
-	} catch (err) {
-		console.log('Doesnt exist bruh...');
-	}
-});
+app.use(
+	session({
+		secret: 'cats',
+		resave: false,
+		saveUninitialized: false
+	})
+);
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // routes
 app.use('/', home);
@@ -52,6 +59,44 @@ app.use('/order', order);
 
 // return 404 for unknown routes
 app.use(getError);
+
+// handle user sign in and intialize user
+passport.serializeUser(function(user, done) {
+	done(null, user._id);
+});
+
+passport.deserializeUser(function(id, done) {
+	User.findById(id, function(err, user) {
+		done(err, user);
+	});
+});
+
+passport.use(
+	new LocalStrategy(
+		{
+			usernameField: 'email',
+			passwordField: 'password'
+		},
+		async function(email, password, done) {
+			try {
+				const user = await User.findOne({ email: email });
+				if (!user) {
+					return done(null, false, { message: 'Incorrect username/password' });
+				}
+
+				bcrypt.compare(password, user.password, function(err, res) {
+					if (res) {
+						return done(null, user);
+					} else {
+						return done(null, false, { message: 'Incorrect username/password' });
+					}
+				});
+			} catch (err) {
+				return done(err);
+			}
+		}
+	)
+);
 
 // connect to mongodb
 mongoose

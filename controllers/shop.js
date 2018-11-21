@@ -62,9 +62,9 @@ shop.getProductType = async (req, res) => {
 		}
 	} 
 	try {
-		const productTypeObj = await Type.findOne({ _id: req.params.productTypeId });
+		const productTypeObj = await Type.findOne({ _id: ObjectId(req.params.productTypeId) });
 		const products = await Product.find({
-			productType: req.params.productTypeId
+			productType: ObjectId(req.params.productTypeId) 
 		}).populate('productType');
 
 		
